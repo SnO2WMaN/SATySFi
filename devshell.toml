@@ -1,0 +1,14 @@
+[devshell]
+name = "satysfi"
+packages = [
+  "alejandra",
+  "dprint",
+  "dune_2",
+  "gnumake",
+  "opam",
+  "ocaml",
+]
+
+[[commands]]
+package = "treefmt"
+category = "formatter"
