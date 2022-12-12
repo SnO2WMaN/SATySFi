@@ -21,14 +21,14 @@ type script =
 module ScriptSchemeMap = Map.Make
   (struct
     type t = script
-    let compare = Pervasives.compare
+    let compare = Stdlib.compare
   end)
 
 
 module ScriptSpaceMap = Map.Make
   (struct
     type t = script * script
-    let compare = Pervasives.compare
+    let compare = Stdlib.compare
   end)
 
 
@@ -41,7 +41,6 @@ type east_asian_width =
   | EAWNeutral
 
 
-(* for debug *)
 let show_script = function
   | CommonNarrow       -> "Common (narrow)"
   | CommonWide         -> "Common (wide)"
@@ -51,8 +50,9 @@ let show_script = function
   | Latin              -> "Latin"
   | OtherScript        -> "Other"
 
-(* for debug *)
-let pp_script fmt script = Format.fprintf fmt "%s" (show_script script)
+
+let pp_script fmt script =
+  Format.fprintf fmt "%s" (show_script script)
 
 
 type language_system =

@@ -1,17 +1,39 @@
-% -*- coding: utf-8 -*-
-@require: stdja
-@require: proof
-@require: tabular
+#[config (|
+  registries = [
+    (|
+      name = `default`,
+      remote =
+        Git(|
+          url = `https://github.com/SATySFi/default-registry`,
+          branch = `format-1`,
+        |)
+    |)
+  ],
+  dependencies = [
+    (| name = `stdlib`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `math`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `proof`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `tabular`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `std-ja`, registry = `default`, requirement = `^0.0.1` |),
+  ],
+|)]
+use package open Stdlib
+use package open Math
+use package open Proof
+use package open Tabular
+use package open StdJa
 
-let-math \overwrite mf ma mb =
-  ${#mf\sqbracket{#ma \mapsto #mb}}
+let open Pervasives in
+
+let math ctx \overwrite mf ma mb =
+  read-math ctx ${#mf\sqbracket{#ma \mapsto #mb}}
 in
 
-document (|
-  title  = {Math Test};
-  author = {Takashi SUWA};
-  show-title = false;
-  show-toc = false;
+document ?(
+  show-title = false,
+) (|
+  title  = {Math Test},
+  author = {Takashi SUWA},
 |) '<
   +p {
     This document was typeset by using \SATySFi;.
@@ -70,7 +92,7 @@ document (|
     \derive{|\paren{\app{\Gamma}{x} \synteq \tau}|}{
       \tyjd{\Gamma}{x}{\tau}
     }
-
+    \math-skip!(2cm)
     \derive{|
       \tyjd{\overwrite{\Gamma}{x}{\tau_1}}{M}{\tau_2}
     |}{
@@ -81,17 +103,17 @@ document (|
     \derive{|
       \tyjd{\Gamma}{M}{\tau_1 \to \tau_2} | \tyjd{\Gamma}{N}{\tau_1}
     |}{
-      \tyjd{\Gamma}{M N}{\tau_2}
+      \tyjd{\Gamma}{M\ N}{\tau_2}
     }
   });
-  +math (${
+  +math(${
     \derive{| A | \derive{| B | C |}{D} |}{E}
   });
   +p {
     A table
     \tabular(fun cellf multif empty -> [
-      [multif 2 1 {The}; cellf {quick}; cellf {brown}; multif 1 2 {fox jumps over}; empty;];
-      [empty; multif 1 2 {the}; empty; cellf {lazy}; cellf {dog};];
-    ])(fun xs ys -> []);
+      [multif 2 1 {The}, cellf {quick}, cellf {brown}, multif 1 2 {fox jumps over}, empty,],
+      [empty, multif 1 2 {the}, empty, cellf {lazy}, cellf {dog},],
+    ])(fun xs ys -> Gr.empty);
   }
 >

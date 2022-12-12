@@ -1,0 +1,28 @@
+#[config (|
+  registries = [
+    (|
+      name = `default`,
+      remote =
+        Git(|
+          url = `https://github.com/SATySFi/default-registry`,
+          branch = `format-1`,
+        |)
+    |)
+  ],
+  dependencies = [
+    (| name = `std-ja`, registry = `default`, requirement = `^0.0.1` |),
+  ],
+|)]
+use package StdJa
+use Staged1Local of `staged1-local`
+
+let open StdJa in
+let inline \show-int n =
+  embed-string (arabic n)
+in
+document (|
+  title = {Staged 1},
+  author = {Takashi Suwa},
+|) '<
+  +p{\show-int(let f = ~(Staged1Local.gen-power 5) in f 3);}
+>

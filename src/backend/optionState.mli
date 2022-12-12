@@ -1,57 +1,54 @@
 
 open MyUtil
 
-type input_kind =
-  | SATySFi
-  | Markdown of string
+type output_mode =
+  | PdfMode
+  | TextMode of string list
 
-val set_input_kind : input_kind -> unit
-val get_input_kind : unit -> input_kind
+type build_state = {
+  input_file             : abs_path;
+  output_file            : abs_path option;
+  output_mode            : output_mode;
+  page_number_limit      : int;
+  debug_show_bbox        : bool;
+  debug_show_space       : bool;
+  debug_show_block_bbox  : bool;
+  debug_show_block_space : bool;
+  debug_show_overfull    : bool;
+  type_check_only        : bool;
+  bytecomp               : bool;
+}
 
-val set_input_file : abs_path -> unit
-val input_file : unit -> abs_path option
+type test_state = {
+  input_file_to_test  : abs_path;
+  output_mode_to_test : output_mode;
+}
+
+type command_state =
+  | BuildState of build_state
+  | TestState  of test_state
+  | SolveState
+
+type state = {
+  command_state      : command_state;
+  extra_config_paths : (string list) option;
+  show_full_path     : bool;
+  no_default_config  : bool;
+}
+
+val set : state -> unit
+
+val get : unit -> state
+
+val get_page_number_limit       : unit -> int
+val does_show_full_path         : unit -> bool
+val does_debug_show_bbox        : unit -> bool
+val does_debug_show_space       : unit -> bool
+val does_debug_show_block_bbox  : unit -> bool
+val does_debug_show_block_space : unit -> bool
+val does_debug_show_overfull    : unit -> bool
+val is_bytecomp_mode            : unit -> bool
 
 val job_directory : unit -> string
 
-val set_output_file : abs_path -> unit
-val output_file : unit -> abs_path option
-
-val set_type_check_only : unit -> unit
-val type_check_only : unit -> bool
-
-val set_bytecomp_mode : unit -> unit
-val bytecomp_mode : unit -> bool
-
-val set_show_full_path : unit -> unit
-val show_full_path : unit -> bool
-
-val set_show_fonts : unit -> unit
-val show_fonts : unit -> bool
-
-val set_debug_show_bbox : unit -> unit
-val debug_show_bbox : unit -> bool
-
-val set_debug_show_space : unit -> unit
-val debug_show_space : unit -> bool
-
-val set_debug_show_block_bbox : unit -> unit
-val debug_show_block_bbox : unit -> bool
-
-val set_debug_show_block_space : unit -> unit
-val debug_show_block_space : unit -> bool
-
-val set_debug_show_overfull : unit -> unit
-val debug_show_overfull : unit -> bool
-
-val set_text_mode : string list -> unit
-val get_mode : unit -> (string list) option
 val is_text_mode : unit -> bool
-
-val set_extra_config_paths : string list -> unit
-val get_extra_config_paths : unit -> string list option
-
-val set_no_default_config_paths : unit -> unit
-val get_no_default_config_paths : unit -> bool
-
-val set_page_number_limit : int -> unit
-val get_page_number_limit : unit -> int

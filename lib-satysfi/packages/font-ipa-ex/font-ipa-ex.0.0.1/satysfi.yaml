@@ -1,0 +1,15 @@
+language: "^0.1.0"
+name: "font-ipa-ex"
+authors: []
+contents:
+  type: "font"
+  main_module: "FontIpaEx"
+  elements:
+  - path: "./fonts/ipaexm.ttf"
+    contents:
+      type: "opentype_single"
+      name: "mincho"
+  - path: "./fonts/ipaexg.ttf"
+    contents:
+      type: "opentype_single"
+      name: "gothic"

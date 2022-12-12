@@ -1,0 +1,69 @@
+#[config (|
+  registries = [
+    (|
+      name = `default`,
+      remote =
+        Git(|
+          url = `https://github.com/SATySFi/default-registry`,
+          branch = `format-1`,
+        |)
+    |)
+  ],
+  dependencies = [
+    (| name = `stdlib`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `math`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `itemize`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `std-ja-report`, registry = `default`, requirement = `^0.0.1` |),
+  ],
+|)]
+use package open Stdlib
+use package open Math
+use package open Itemize
+use package open StdJaReport
+
+let open Pervasives in
+
+let block ctx +test-math-style name style =
+  let it = embed-string name in
+  read-block ctx '<
+    +p{
+      #it;:
+    }
+    +p{
+      ${\math-style!(style){abcdefghijklmnopqrstuvwxyz}}
+      ${\math-style!(style){ABCDEFGHIJKLMNOPQRSTUVWXYZ}}
+    }
+    +p{
+      ${\math-style!(style){\alpha\beta\gamma\delta\epsilon\zeta\eta\theta\iota\kappa\lambda\mu\nu\xi\omicron\pi\rho\sigma\tau\upsilon\phi\chi\psi\omega}}
+      ${\math-style!(style){\Alpha\Beta\Gamma\Delta\Epsilon\Zeta\Eta\Theta\Iota\Kappa\Lambda\Mu\Nu\Xi\Omicron\Pi\Rho\Sigma\Tau\Upsilon\Phi\Chi\Psi\Omega}}
+    }
+  >
+in
+document (|
+  title = {\SATySFi;},
+  author = {},
+|) '<
+  +section{Math char classes}<
+    +test-math-style(`Roman`)(MathRoman);
+    +test-math-style(`Bold`)(MathBoldRoman);
+    +test-math-style(`Italic`)(MathItalic);
+    +test-math-style(`Bold Italic`)(MathBoldItalic);
+    +test-math-style(`Script`)(MathScript);
+    +test-math-style(`Bold Script`)(MathBoldScript);
+    +test-math-style(`Fraktur`)(MathFraktur);
+    +test-math-style(`Bold Fraktur`)(MathBoldFraktur);
+    +test-math-style(`Double Struck`)(MathDoubleStruck);
+    +test-math-style(`Sans Serif`)(MathSansSerif);
+    +test-math-style(`Bold Sans Serif`)(MathBoldSansSerif);
+    +test-math-style(`Italic Sans Serif`)(MathItalicSansSerif);
+    +test-math-style(`Bold Italic Sans Serif`)(MathBoldItalicSansSerif);
+    +test-math-style(`Typewriter`)(MathTypewriter);
+  >
+  +section{Math font commands}<
+    +listing{
+      * ${\mathtt{mathtt}}
+      * ${\mathit{mathit}}
+      * ${\mathsf{mathsf}}
+    }
+  >
+>

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/), 
 
 ## [Unreleased]
 ### Fixed
+- Emit a parsing error when a parameter sequence ends with an optional one ([PR\#365](https://github.com/gfngfn/SATySFi/pull/365) by `anko9801`).
+
+## [0.0.8] - 2022-10-01
+### Fixed
 - Fix spacing at the beginning of math formulae ([PR\#333](https://github.com/gfngfn/SATySFi/pull/333) by `sankantsu`).
 - Fix spacing around `(` and `)` literally written in math formulae ([PR\#334](https://github.com/gfngfn/SATySFi/pull/334) by `sankantsu`).
 - Slightly improve how to report syntax errors for empty files ([PR\#330](https://github.com/gfngfn/SATySFi/pull/330) by `leque`).
@@ -140,7 +144,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/), 
 - Initial version of SATySFi
 
 
-  [Unreleased]: https://github.com/gfngfn/SATySFi/compare/v0.0.7...HEAD
+  [Unreleased]: https://github.com/gfngfn/SATySFi/compare/v0.0.8...HEAD
+  [0.0.8]: https://github.com/gfngfn/SATySFi/compare/v0.0.7...v0.0.8
   [0.0.7]: https://github.com/gfngfn/SATySFi/compare/v0.0.6...v0.0.7
   [0.0.6]: https://github.com/gfngfn/SATySFi/compare/v0.0.5...v0.0.6
   [0.0.5]: https://github.com/gfngfn/SATySFi/compare/v0.0.4...v0.0.5

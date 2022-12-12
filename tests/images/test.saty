@@ -1,19 +1,41 @@
-@require: stdja
-@require: itemize
-@require: annot
+#[config (|
+  registries = [
+    (|
+      name = `default`,
+      remote =
+        Git(|
+          url = `https://github.com/SATySFi/default-registry`,
+          branch = `format-1`,
+        |)
+    |)
+  ],
+  dependencies = [
+    (| name = `std-ja`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `itemize`, registry = `default`, requirement = `^0.0.1` |),
+    (| name = `annot`, registry = `default`, requirement = `^0.0.1` |),
+  ],
+|)]
+#[dependencies [
+  (`std-ja`, `^0.0.1`),
+  (`itemize`, `^0.0.1`),
+  (`annot`, `^0.0.1`),
+]]
+use package StdJa
+use package Itemize
+use package Annot
 
-let-inline ctx \insert-image w path =
+let inline ctx \insert-image w path =
   let img = load-image path in
     use-image-by-width img w
-
-let-block ctx +newpage = clear-page
-
 in
+let block ctx +newpage = clear-page in
+
+let open StdJa in
+let open Itemize in
+let open Annot in
 document (|
-  title = {Tests for Images};
-  author = {};
-  show-title = true;
-  show-toc = false;
+  title = {Tests for Images},
+  author = {},
 |) '<
   +section{JPEG images}<
      +p{This is a jpeg image in gray scale.
@@ -42,7 +64,7 @@ document (|
     +p{
       Images from \href(`http://www.schaik.com/pngsuite/`){PngSuite}.
     }
-    +listing {
+    +listing{
       * \insert-image(0.5cm)(`PngSuite-2017jul19/basi0g01.png`);
       PngSuite-2017jul19/basi0g01.png: PNG image data, 32 x 32, 1-bit grayscale, interlaced
       * \insert-image(0.5cm)(`PngSuite-2017jul19/basn0g01.png`);
